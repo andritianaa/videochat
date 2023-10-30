@@ -14,14 +14,36 @@
     <video id="localVideo" autoplay playsinline muted></video>
     <video id="remoteVideo" autoplay playsinline></video>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.3/socket.io.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-peer/9.11.1/simplepeer.min.js"
-        integrity="sha512-0f7Ahsuvr+/P2btTY4mZIw9Vl23lS6LY/Y7amdkmUg2dqsUF+cTe4QjWvj/NIBHJoGksOiqndKQuI9yzn2hB0g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-peer/9.11.1/simplepeer.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix"></script>
     <script>
+
         const socket = io('https://video.teratany.org');
         const localVideo = document.getElementById('localVideo');
         const remoteVideo = document.getElementById('remoteVideo');
         let peer;
+
+        // Initialiser le modèle BodyPix
+        let model;
+        const bodyPixConfig = {
+            architecture: 'MobileNetV1',
+            outputStride: 16,
+            multiplier: 1,
+            quantBytes: 2
+        };
+
+        const loadBodyPixModel = async () => {
+            console.log("loadBodyPix");
+            model = await bodyPix.load(bodyPixConfig);
+        };
+
+        // Flouter l'arrière-plan
+        const blurBackground = async (video, canvas) => {
+            const segmentation = await model.segmentPerson(video);
+            const backgroundBlurAmount = 6;
+            bodyPix.drawBokehEffect(canvas, video, segmentation, backgroundBlurAmount, 5);
+        };
 
         navigator.mediaDevices.getUserMedia({ video: true, audio: true })
             .then(stream => {
@@ -50,6 +72,9 @@
                     });
                     peer.signal(offer);
                 });
+
+                // Appeler la fonction loadBodyPixModel au chargement de la page
+                loadBodyPixModel();
             })
             .catch(error => {
                 console.error('Error accessing media devices: ', error);
@@ -57,20 +82,31 @@
 
     </script>
     <style>
+        * {
+            margin: 0;
+        }
+
         #localVideo {
-            width: 50%;
+            width: 30%;
             height: auto;
             position: fixed;
             bottom: 32px;
             right: 32px;
             border: solid 3px white;
             border-radius: 10px;
+            transform: scaleX(-1);
+            z-index: 100
         }
 
         #remoteVideo {
-            width: 100vw;
+            width: auto;
             height: 100vh;
             object-fit: cover;
+            transform: scaleX(-1);
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
         }
     </style>
 </body>

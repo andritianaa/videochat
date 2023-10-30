@@ -1,0 +1,105 @@
+* {
+    margin: 0;
+}
+
+body {
+    background: black;
+}
+
+#localVideo {
+    width: 30%;
+    max-width: 400px;
+    height: auto;
+    position: fixed;
+    top: 32px;
+    right: 32px;
+    border: solid 3px white;
+    border-radius: 10px;
+    transform: scaleX(-1);
+    z-index: 1
+}
+
+#remoteVideo {
+    width: auto;
+    height: 100vh;
+    transform: scaleX(-1);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+
+#status {
+    color: white;
+    position: fixed;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+}
+
+.raccrocher {
+    background: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    z-index: 999999;
+    cursor: pointer;
+    transition: ease all .3s;
+}
+
+.raccrocher:hover {
+    background: rgb(204, 0, 0);
+}
+
+#copyText {
+    background: rgba(255, 255, 255, 0.849);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    position: fixed;
+    bottom: 32px;
+    left: calc(50% + 112px);
+    border-radius: 50%;
+    transform: translateX(-50%);
+    z-index: 999999;
+    cursor: pointer;
+    transition: ease all .3s;
+}
+
+#copyText:hover {
+    background-color: rgba(255, 255, 255, 0.849);
+}
+
+#playing,
+#muted {
+    background: rgba(255, 255, 255, 0.849);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    position: fixed;
+    bottom: 32px;
+    left: calc(50% - 112px);
+    border-radius: 50%;
+    transform: translateX(-50%);
+    z-index: 999999;
+    cursor: pointer;
+    transition: ease all .3s;
+}
+
+#copyText:hover {
+    background-color: rgba(255, 255, 255, 0.849);
+}

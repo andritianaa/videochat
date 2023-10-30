@@ -13,7 +13,7 @@ copyText.addEventListener('click', (e) => {
         });
 });
 
-const socket = io('http://localhost:5000');
+const socket = io('https://video.teratany.org');
 const localVideo = document.getElementById('localVideo');
 const remoteVideo = document.getElementById('remoteVideo');
 const statusDiv = document.getElementById('status');

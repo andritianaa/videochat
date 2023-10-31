@@ -8,7 +8,7 @@ body {
 
 #localVideo {
     width: 30%;
-    max-width: 400px;
+    max-width: 300px;
     height: auto;
     position: fixed;
     top: 32px;
@@ -66,16 +66,22 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     position: fixed;
-    bottom: 32px;
+    bottom: 42px;
     left: calc(50% + 112px);
     border-radius: 50%;
     transform: translateX(-50%);
     z-index: 999999;
     cursor: pointer;
     transition: ease all .3s;
+}
+
+#copyText img,
+#muted img,
+#playing img {
+    transform: scale(0.7);
 }
 
 #copyText:hover {
@@ -88,10 +94,10 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 80px;
-    height: 80px;
+    width: 60px;
+    height: 60px;
     position: fixed;
-    bottom: 32px;
+    bottom: 42px;
     left: calc(50% - 112px);
     border-radius: 50%;
     transform: translateX(-50%);
